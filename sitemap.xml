@@ -68,4 +68,12 @@
         <loc>http://ephemeral.me/</loc>
         <lastmod>2016-08-16T17:39:22+00:00</lastmod>
     </url>
+    <url>
+        <loc>http://ephemeral.me/new/</loc>
+        <lastmod>2016-08-16T19:20:47+00:00</lastmod>
+    </url>
+    <url>
+        <loc>http://ephemeral.me/new/write.html</loc>
+        <lastmod>2016-08-16T19:29:01+00:00</lastmod>
+    </url>
 </urlset>
