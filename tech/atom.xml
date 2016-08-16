@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[the Ephemeral Me]]></title>
+  <link href="http://ephemeral.me/atom.xml" rel="self"/>
+  <link href="http://ephemeral.me/"/>
+  <updated>2016-08-16T10:01:41+00:00</updated>
+  <id>http://ephemeral.me/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[embracing the vim way]]></title>
+    <link href="http://ephemeral.me/blog/2013/08/18/experiencing-vim-everywhere/"/>
+    <updated>2013-08-18T19:05:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/08/18/experiencing-vim-everywhere</id>
+    <content type="html"><![CDATA[<p>There are several reasons why vim is the best friend of a keyboard warrior.
+The ever-lasting emacs-vim war aside, I think vim is the best way to interact
+with your computer. For me the philosophy of vim is fascinating and I love it
+and I use it wherever I can. Today it just got better for me, and I&#8217;m
+going to show how.</p>
+
+<!-- more -->
+
+
+<p>So I was doing this usual business of going through hackernews and /r/hacking
+and /r/technology, and I come across this article where someone said - I badly
+want to remember who, but I am not able to - he uses vim, vimperator and i3. I
+blindly clicked on the hyperlinks to discover two beautiful things I&#8217;m gonna
+use for a very long time now - vimperator (and it&#8217;s counterpart vrome) and i3.</p>
+
+<h2>vimperator (vrome) - browse vim style</h2>
+
+<p><a href="http://www.vimperator.org/vimperator">vimperator</a> is an add-in for firefox. It gives
+the user the ability to use firefox as if it were vim. No I&#8217;m not talking about
+a text-based browser, I&#8217;m talking about the normal firefox with a vim-like
+keyboard interface. It adds a sleuth of abilities to firefox including
+hjkl-movements, ex commands, marks, tab-completion and so many others I can&#8217;t
+yet fathom a browser can have yet.<br/>
+<a href="https://chrome.google.com/webstore/detail/vrome/godjoomfiimiddapohpmfklhgmbfffjj">vrome</a>
+- the counterpart for vimperator on google-chrome. vrome takes it a step further
+with a menu appearing whenever you type <code>:</code> (obviously not within a text box).
+The range of commands available at hand in both vimperator and vrome is
+amazing.</p>
+
+<p><img src="http://ephemeral.me/images/vim1.jpg" alt="vrome" /></p>
+
+<h2>i3: refreshing!</h2>
+
+<p>Now I set out to try <a href="http://i3wm.org">i3</a>: the other thing that grabbed my attention.
+While I had my antennas focused because of the term <code>tiling window manager</code>, I
+never expected something so nice. i3 turns out to be an easy-to-install tiling
+window manager that imbibes most of the vim philosophy.</p>
+
+<p>There&#8217;s a nice manual on how to install it on almost any flavor of linux,
+especially debian. (I use an Ubuntu 12.04, and I used to use Unity/awesomewm till
+now.) Once installed, it gave me two important things: the i3 wm itself,
+accessible from gdm on log-in and the <code>i3bar</code>, the taskbar on the bottom.
+Everything just worked, inluding the default settings wizard, the <code>nm-applet</code>, and
+the very useful <code>dmenu</code>. I was underway in a matter of minutes because it was
+all familiar <code>vim</code> territory.</p>
+
+<p><img src="http://ephemeral.me/images/vim2.jpg" alt="i3" /></p>
+
+<p>Apart from being a vim-inspired wm, i3 also stresses on having a clean codebase,
+very nice hackability and great manuals - just what you need for a stong open
+source project.</p>
+
+<p>Overall, today has been one of those days when your laptop suddenly gets this
+huge makeover and facelift (not always). This time, I doubt if I&#8217;ll ever go
+back.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Option parsing in Python scripts]]></title>
+    <link href="http://ephemeral.me/blog/2013/07/16/option-parsing-in-python-scripts/"/>
+    <updated>2013-07-16T15:12:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/07/16/option-parsing-in-python-scripts</id>
+    <content type="html"><![CDATA[<p>Just wrote a command-line python script and want to spread the happiness to
+others by passing it on? If your last hurdle to this is adding ability to take
+command line options like those (cool) shell scripts, here is your solution.</p>
+
+<!-- more -->
+
+
+<p>Now while it is possible to parse the arguments by taking the arguments as
+string by doing this,:</p>
+
+<figure class='code'><figcaption><span>Arguments using sys.argv </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
+</span><span class='line'><span class="c"># &lt;scriptname&gt; hello -o filename </span>
+</span><span class='line'><span class="c"># will give sys.argv = [scriptname hello -o filename]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>the approach is tedious and you will end up more time accounting for various
+permutations and combinations.</p>
+
+<h2>./introduce.py <code>--</code>module optprase</h2>
+
+<p>Python is definitely a nicer world, and there is <code>optparse</code> to your rescue.</p>
+
+<p><strong>NOTE</strong>: <a href="http://docs.python.org/2/library/optparse.html"><code>optparse</code></a> is only until python 2.7, in python >3.0, there is
+<a href="http://docs.python.org/dev/library/argparse.html"><code>argparse</code></a>.</p>
+
+<figure class='code'><figcaption><span>argparse example</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">optparse</span>
+</span><span class='line'><span class="c">#argparse in python &gt;3.0, visit http://docs.python.org/dev/library/argparse.html</span>
+</span><span class='line'><span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">()</span>
+</span><span class='line'><span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-f&quot;</span><span class="p">,</span> <span class="s">&quot;--file&quot;</span><span class="p">,</span>               <span class="c">#the long and short option</span>
+</span><span class='line'>                    <span class="n">dest</span><span class="o">=</span><span class="s">&quot;filename&quot;</span><span class="p">,</span>            <span class="c">#name in the options dict</span>
+</span><span class='line'>                    <span class="n">help</span><span class="o">=</span><span class="s">&quot;write report to FILE&quot;</span><span class="p">,</span><span class="c">#help text for --help</span>
+</span><span class='line'>                    <span class="n">metavar</span><span class="o">=</span><span class="s">&quot;FILE&quot;</span><span class="p">)</span>             <span class="c">#notice the help text.</span>
+</span><span class='line'><span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">&quot;-q&quot;</span><span class="p">,</span> <span class="s">&quot;--quiet&quot;</span><span class="p">,</span>              <span class="c">#again, option names</span>
+</span><span class='line'>                    <span class="n">dest</span><span class="o">=</span><span class="s">&quot;verbose&quot;</span><span class="p">,</span>             <span class="c">#name in options dict</span>
+</span><span class='line'>                    <span class="n">action</span><span class="o">=</span><span class="s">&quot;store_false&quot;</span><span class="p">,</span>       <span class="c">#special way to say, store False</span>
+</span><span class='line'>                    <span class="n">default</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">,</span>             <span class="c">#default value</span>
+</span><span class='line'>                    <span class="n">help</span><span class="o">=</span><span class="s">&quot;dont print the status messages&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>           <span class="c">#notice, returned list is unpacked</span>
+</span><span class='line'><span class="k">print</span> <span class="n">options</span><span class="p">,</span> <span class="n">args</span>                             <span class="c">#refer the output in the next section</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># ./&lt;scriptname&gt; -f filename -q other-arguments</span>
+</span><span class='line'><span class="c"># ./&lt;scriptname&gt; -qf filename other-arguments</span>
+</span><span class='line'><span class="c"># ./&lt;scriptname&gt; -q -ffilename other-arguments</span>
+</span><span class='line'><span class="c"># ./&lt;scriptname&gt; --quiet --file filename other-arguments</span>
+</span><span class='line'><span class="c"># all these will give an output </span>
+</span><span class='line'><span class="c"># options                                  args</span>
+</span><span class='line'><span class="c"># {&#39;verbose&#39;: False, &#39;filename&#39;: &#39;myfile&#39;} [other-arguments, ]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Before I go any further, let me also show the output of this script.</p>
+
+<figure class='code'><figcaption><span>argparse output</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>pharos_user@pdevdv3os1dv ~<span class="o">]</span><span class="nv">$ </span>python optparser.py -qf myfile other-arguments
+</span><span class='line'><span class="o">{</span><span class="s1">&#39;verbose&#39;</span>: False, <span class="s1">&#39;filename&#39;</span>: <span class="s1">&#39;myfile&#39;</span><span class="o">}</span> <span class="o">[</span><span class="s1">&#39;other-arguments&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="o">[</span>pharos_user@pdevdv3os1dv ~<span class="o">]</span><span class="nv">$ </span>python optparser.py --help
+</span><span class='line'>usage: optparser.py <span class="o">[</span>options<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>options:
+</span><span class='line'>-h, --help            show this <span class="nb">help </span>message and <span class="nb">exit</span>
+</span><span class='line'>-f FILE, --file<span class="o">=</span>FILE  write report to FILE
+</span><span class='line'>-q, --quiet           dont print the status messages
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s apparent that:</p>
+
+<ul>
+<li>A <code>--help</code> or <code>-h</code> option is, rather conveniently, automatically added, which
+prints traditionally styled help text.</li>
+<li><code>help</code> option to <code>parser.add_option</code> provides the help text of each option for the automatically
+produced <code>--help</code> usage.</li>
+<li><code>dest</code> is the variable name in which the option data is stored in the
+<code>options</code> dictionary.</li>
+<li><code>action</code> tells that IF the option is given, then store <code>False</code> in the variable
+provided by <code>dest</code>.</li>
+<li><code>default</code>, no surprise here, is the default value for the option.</li>
+<li>Once we get all the options in the dictionary called options, the remaining
+arguments are stored in <code>args</code>.</li>
+</ul>
+
+
+<h2>Footnotes</h2>
+
+<h3>Return value unpacking in python</h3>
+
+<p>Did you notice how we slickly wrote <code>(options, args) = parser.parse_args()</code>, and
+two values went into <code>options</code> and <code>args</code> seperately?</p>
+
+<p>Actually, the function is returning two values in a tuple. If we write a
+function like this:</p>
+
+<figure class='code'><figcaption><span>multiple return values</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+</span><span class='line'><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span>
+</span><span class='line'><span class="c"># a=1, b=2, c=3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Got that? Now again, what if you don&#8217;t want to store <code>a</code> and <code>b</code>, and just want to
+take <code>c</code>?</p>
+
+<figure class='code'><figcaption><span>ignore some returns</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#both these work:</span>
+</span><span class='line'><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span> <span class="c">#ignore first two return values</span>
+</span><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+</span><span class='line'><span class="c">#which means even this works:</span>
+</span><span class='line'><span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="c">#awesome!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Single letter and long options in shell</h3>
+
+<p>When a command is called, there can be either a single letter option: <code>ls -a</code> or
+a long form of the option <code>ls --all</code>.</p>
+
+<ul>
+<li>Shorter options can be combined together:
+<code>ls -lah</code> also means <code>ls -l -a -h</code>.</li>
+<li>Option with arguments also can be mixed with
+options without: <code>script -qf filename</code> is same as <code>script -q -f filename</code>.</li>
+<li>Also, notice how single letter option with argument can be written as <code>script
+-ffilename</code> without a space between argument and option.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Trivia]]></title>
+    <link href="http://ephemeral.me/blog/2013/07/08/trivia/"/>
+    <updated>2013-07-08T11:12:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/07/08/trivia</id>
+    <content type="html"><![CDATA[<p>There are many things that I find randomly on Internet that I want to remember.
+Until I make an app to organize these bits of knowledge (wait, that might be a
+worthy project in itself), I am going to store them here.</p>
+
+<!-- more -->
+
+
+<h2>iPython inside virtualenv</h2>
+
+<p>Launching iPython inside virtualenv creates problems - it doesn&#8217;t obey the
+restrictions placed by virtualenv about restricting itself inside the virtual
+environment and tries to load packages from system library when you <code>import</code>
+etc.</p>
+
+<p>Here is how to launch it so it uses the correct Python version inside the
+virtual environment, thanks to <a href="https://coderwall.com/p/xdox9a">Hatem Nassrat</a>.</p>
+
+<figure class='code'><figcaption><span>alias for iPython inside virtualenv</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">ipy</span><span class="o">=</span><span class="s2">&quot;python -c &#39;import IPython;</span>
+</span><span class='line'><span class="s2">IPython.frontend.terminal.ipapp.launch_new_instance()&#39;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>sudo -s</h2>
+
+<p>Gives root access even if you dont have the <code>root</code> username access.
+I dont know how this works, I&#8217;ll have to read up about it.</p>
+
+<h2>NERDTree autoclose when file closed</h2>
+
+<p><a href="https://github.com/scrooloose/nerdtree">NERDTree</a> by Martin Grefnell is easily
+one of the most performance-increasing vim plugins, causing you to be highly
+productive. While there are several options that can make your life with
+NERDTree easy, there is one thing that&#8217;s not so straightforward.</p>
+
+<p>When you close a file in vim, say there was NERDTree open in the side. It
+remains open, and becomes the only open window in the vim instance, forcing you
+to manually close that window too. While you <em>can</em> say <code>:wqa</code> and close all
+windows, including NERDTree, you can also use this neat little trick to close
+the NERDTree automatically on closing the last editor window:</p>
+
+<figure class='code'><figcaption><span>put this in a single line in your ~/.vimrc</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>autocmd bufenter * <span class="k">if</span> <span class="o">(</span>winnr<span class="o">(</span><span class="s2">&quot;$&quot;</span><span class="o">)</span> <span class="o">==</span> 1 <span class="o">&amp;&amp;</span> exists<span class="o">(</span><span class="s2">&quot;b:NERDTreeType&quot;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> b:NERDTreeType <span class="o">==</span> <span class="s2">&quot;primary&quot;</span><span class="o">)</span> | q | endif
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Tab in vim</h2>
+
+<p>As followed by several programmers around the world, the best practices for
+indenting code is, to have a 4-space tab. This makes code easy to read while not
+causing too much indentation and as a result make it difficult to follow the
+80-character width limit.</p>
+
+<p>But vim&#8217;s default is a 8-space tab, and it&#8217;s not 8 spaces but a <code>\t</code> tab
+character. To make this right, add this one line to your .vimrc:</p>
+
+<figure class='code'><figcaption><span>put this in your ~/.vimrc</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set </span><span class="nv">tabstop</span><span class="o">=</span>4 <span class="nv">shiftwidth</span><span class="o">=</span>4 expandtab
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Obviously, here <code>expandtab</code> means split a tab into 4 spaces. <code>tabstop=4</code> makes
+the tab&#8217;s width 4, while <code>shiftwidth=4</code> causes the automatically inserted
+indentation to also have 4 spaces.</p>
+
+<h2>Screen session names</h2>
+
+<p>If you have a remote computer or if you connect to a remote computer, and use
+screen over ssh, you might have noticed that it&#8217;s a pain to track multiple
+screen sessions - you have to remember the <code>pid</code>s - and you have to often open
+every session one by one.</p>
+
+<p>Here is the easiest way to manage that -</p>
+
+<p>To start a new session with a sessionname, just do</p>
+
+<figure class='code'><figcaption><span>new session with name &#8220;webAdmin&#8221;</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>screen -S webAdmin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To edit an existing session&#8217;s name,</p>
+
+<figure class='code'><figcaption><span>edit session name of current session</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>C-a :
+</span><span class='line'>sessionname webAdmin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To list the existing screen sessions, you could</p>
+
+<figure class='code'><figcaption><span>list sessions</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sddhrthrt@bellakki:~<span class="nv">$ </span>screen -list
+</span><span class='line'>There are screens on:
+</span><span class='line'>32090.blog      <span class="o">(</span>07/08/2013 11:26:26 AM<span class="o">)</span>        <span class="o">(</span>Detached<span class="o">)</span>
+</span><span class='line'>8306.scrapy     <span class="o">(</span>06/19/2013 09:40:55 AM<span class="o">)</span>        <span class="o">(</span>Detached<span class="o">)</span>
+</span><span class='line'>15387.meteor    <span class="o">(</span>06/10/2013 11:40:21 AM<span class="o">)</span>        <span class="o">(</span>Detached<span class="o">)</span>
+</span><span class='line'>3 Sockets in /var/run/screen/S-sddhrthrt.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, connect to either session by just:</p>
+
+<figure class='code'><figcaption><span>reattach to the session named &#8220;scrapy&#8221; </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>screen -r scrapy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Command line options parsing in Python</h2>
+
+<p>Just wrote a command-line python script and want to spread the happiness to
+others by passing it on? If your last hurdle to this is adding ability to take
+command line options like those (cool) shell scripts, <a href="http://ephemeral.me/blog/2013/07/16/option-parsing-in-python-scripts/">here is your solution</a>.</p>
+
+<h2>Extract link URLs from a webpage</h2>
+
+<p>How to extract all link URLs from a webpage? Here are two ways:</p>
+
+<figure class='code'><figcaption><span>list all links</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cat index.html |<span class="se">\</span>
+</span><span class='line'>    grep -o <span class="s1">&#39;&lt;a .*href=.*&gt;&#39;</span> | <span class="se">\</span>
+</span><span class='line'>    sed -e <span class="s1">&#39;s/&lt;a /\n&lt;a /g&#39;</span> | <span class="se">\</span>
+</span><span class='line'>    sed -e <span class="s1">&#39;s/&lt;a .*href=[&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;&quot;]//&#39;</span> -e <span class="s1">&#39;s/[&quot;&#39;</span><span class="s2">&quot;&#39;&quot;</span><span class="s1">&#39;].*$//&#39;</span> -e <span class="s1">&#39;/^$/ d&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Credits to
+<a href="http://stackoverflow.com/questions/1881237/easiest-way-to-extract-the-urls-from-an-html-page-using-sed-or-awk-only">Crisboot</a>&#8217;s
+answer to a question. Now I am not entirely sure about every step of the
+command, and I&#8217;m still understanding bits of that hugeass regex, so dont ask me.
+But hey, this is meant to a (sort of) cookbook, so dont be too serious, just
+copy paste. :P</p>
+
+<p>Oh and a better solution, although tied to lynx, is:</p>
+
+<figure class='code'><figcaption><span>list all links</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>lynx -dump -listonly
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Ctrl-R backwards history search in z-shell</h2>
+
+<p>Ever furiously tapped Ctrl-R in zsh hoping that reverse history search (the
+awesome friend that helps when you forgot what magic command you used the last time)
+and found it doesn&#8217;t work? Turns out it&#8217;s not bound to anything at all in vim
+mode. So go to your <code>~/zshrc</code> and add this:</p>
+
+<figure class='code'><figcaption><span>Ctrl-R search in zsh for reverse history search</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bindkey <span class="s2">&quot;^R&quot;</span> <span class="nb">history</span>-incremental-search-backward
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Screencasting in Ubuntu - Ultimate Solution]]></title>
+    <link href="http://ephemeral.me/blog/2013/05/07/screencasting-in-ubuntu-ultimate-solution/"/>
+    <updated>2013-05-07T04:00:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/05/07/screencasting-in-ubuntu-ultimate-solution</id>
+    <content type="html"><![CDATA[<p>While doing a couple of screencasts that we had to do as a part of our course, I
+went through the process of learning how to create a screencast with just the
+basic <a href="http://www.ffmpeg.org/">ffmpeg</a> tool. After facing a couple of hurdles and several iterations of
+juggling with settings later, I finally came up with the right recipe: It works
+smooth as a charm.</p>
+
+<!-- more -->
+
+
+<p>Without further ado, here is the final combo that worked:</p>
+
+<figure class='code'><figcaption><span>Screencasting recipe</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ffmpeg -f alsa -ac 2 -i pulse -acodec alac -ab 128k -f x11grab
+</span><span class='line'>-s <span class="sb">`</span>xdpyinfo | grep <span class="s1">&#39;dimensions:&#39;</span>|awk <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span> -r 25 -i :0.0 -sameq
+</span><span class='line'>final.mkv
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here, <code>ffmpeg</code> is the tool that comes with the linux toolkit - it&#8217;s used for
+recording/transcoding video. This can do almost everything you want it to do in
+terms of video/audio encoding/transcoding/cropping/merging or whatever.</p>
+
+<p>The options:</p>
+
+<ul>
+<li><p><code>-f alsa</code> means use format <a href="https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture"><code>alsa</code></a>. It&#8217;s an audio format, and when you
+mention an audio format, <code>ffmpeg</code> knows that it should use the format for the
+audio channel.</p></li>
+<li><p><code>-ac 2</code> tells <code>ffmpeg</code> to record 2 channels of audio with the video.</p></li>
+<li><p><code>-i pulse</code> - mind you, many tutorials out there suggest you to use <code>-i hw:0,0</code>
+or something similar. This did not work great for me, in fact, it worked much
+worse. Audio was crackling, video lagged and slowly audio and video lost sync
+along with time.</p></li>
+<li><p><code>-acodec alac</code> asks <code>ffmpeg</code> to use a particular codec, and it worked well.</p></li>
+<li><code>-ab 128k</code> asks <code>ffmpeg</code> to use 128kbit/s audio bitrate. This is good enough
+for most applications.</li>
+<li><code>-f x11grab</code> is the next format we are going to use - it&#8217;s the screengrabbing
+format.</li>
+<li><code>-s `xdpyinfo | grep 'dimensions:'|awk '{print #2}'`</code> - this piece of code
+here actually fetches your screen size! It gives the screen width and height
+as input to the <code>-s</code> option, as the size of the screen to be captured.</li>
+<li><code>-r 25</code> denotes the frame rate. 25 should usually work, unless your screen has
+a specific application running in a particular framerate and you need to
+capture it in that particular framerate. You could actually experiment around
+it to get good results.</li>
+<li><code>-i :0.0</code> asks <code>ffmpeg</code> to take video input from the <a href="http://www.x.org/archive/X11R6.8.1/doc/X.7.html">:0.0</a> - that&#8217;s
+the first screen connected to the computer.</li>
+<li><code>-sameq</code> modifier tells ffmpeg to keep the same quality as input - that&#8217;s
+kinda making the solution easier.</li>
+</ul>
+
+
+<h3>Important things to keep in mind during a screencast:</h3>
+
+<ul>
+<li><p>Never use the laptop keyboard if your recording rig is a laptop - the laptop
+key clicks get recorded in the mic. Apparently <a href="noiseremoval">Thinkpad is bringing a new
+solution</a> for this problem.</p></li>
+<li><p>Sit in a place without much wind directly hitting your mic. Clean the mic and
+the hole where it&#8217;s hosted - helps improve the sound.</p></li>
+<li><p>You could use vlc/smplayer and open up a window with webcam on the screen, so
+you could have yourself on the screencasting. Here&#8217;s how to do it for
+smplayer:</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Showing webcam in mplayer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  mplayer -tv <span class="nv">driver</span><span class="o">=</span>v4l2:gain<span class="o">=</span>1:width<span class="o">=</span>640:height<span class="o">=</span>480:device<span class="o">=</span>/dev/video0:fps<span class="o">=</span>10:outfmt<span class="o">=</span>rgb16 tv://
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Alright, after you record in the aforementioned way, you might want to convert
+the mkv to avi or some other lighter format - actually the bitrate is quite
+for the video because of the <code>-sameq</code> modifier. If you actually mention a
+lower bitrate for the video part, the size may decrease. I got 190MB for a 15
+minute video.</li>
+</ul>
+
+
+<p>Happy Screencasting!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to configure an SSL site in Ubuntu?]]></title>
+    <link href="http://ephemeral.me/blog/2013/02/13/how-to-configure-a-ssl-site-in-ubuntu/"/>
+    <updated>2013-02-13T15:48:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/02/13/how-to-configure-a-ssl-site-in-ubuntu</id>
+    <content type="html"><![CDATA[<p>A part of my Software Engineering project is this (specially :P) assigned task
+of reverse engineering a website for my department. This site for
+<a href="dasanit.org">DASA</a> applicants is a <code>https</code> site, obviously, and I had to
+install this locally. Well, this just happens to be my first journey into the
+world of php. I got the site from the maintainer, who is pretty new to the role
+too. Now there were two folders, one which had all the files of the site,
+another with the database dump.</p>
+
+<!-- more -->
+
+
+<p>Here is what to do when you are in a situation like this - create a new site
+using HTTPS or something.</p>
+
+<p>First, let&#8217;s start with installing the L(inux)A(pache)M(ysql)P(hp/ython) stack
+in your Ubuntu machine. There is an excellent method to do this:</p>
+
+<figure class='code'><figcaption><span>Installing the lamp stack</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install tasksel
+</span><span class='line'>sudo tasksel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now select the LAMP stack option (usually the 4th). Press enter and you are
+done with installing the LAMP stack. Visit <code>localhost</code> with your browser to
+confirm - you should see something other than the usual boring error message
+&#8216;page not found&#8217;</p>
+
+<p>Now you have to configure the site.</p>
+
+<figure class='code'><figcaption><span>Configuring a new site in Apache2</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#change to the /var/www directory </span>
+</span><span class='line'><span class="nb">cd</span> /var/www
+</span><span class='line'>
+</span><span class='line'><span class="c">#change permissions - otherwise you will have to struggle later.  </span>
+</span><span class='line'><span class="c">#do this if this is your own computer. Otherwise change permissions of </span>
+</span><span class='line'><span class="c">#individual directories as you go ahead.</span>
+</span><span class='line'>sudo chown -R username:username /var/www
+</span><span class='line'>
+</span><span class='line'><span class="c">#This step is dangerous on someone else&#39;s computer too - but on your own</span>
+</span><span class='line'><span class="c">#personal machine, chill!  </span>
+</span><span class='line'>sudo chmod +rwx -R /var/www
+</span><span class='line'>
+</span><span class='line'>mkdir /var/www/dasa
+</span><span class='line'>
+</span><span class='line'><span class="c">#now it&#39;s time to create the ssl: </span>
+</span><span class='line'><span class="c">#when you visit with your browser to https://localhost, we should get the same </span>
+</span><span class='line'><span class="c">#page as you got previously, after following the steps below.</span>
+</span><span class='line'>
+</span><span class='line'>sudo a2enmod ssl
+</span><span class='line'>
+</span><span class='line'><span class="c">#use the default ssl site configuration to create one of your own:</span>
+</span><span class='line'>sudo <span class="nb">cd</span> /etc/apache2/sites-available/
+</span><span class='line'>sudo cp default-ssl ssl
+</span><span class='line'>sudo gedit ssl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now edit the file and change the line in the top from <code>&lt;VirtualHost _default_:443&gt;</code>
+to <code>&lt;VirtualHost *:443&gt;</code> and save the file.</p>
+
+<figure class='code'><figcaption><span>Save and restart.</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo a2ensite ssl
+</span><span class='line'>sudo service apache2 restart
+</span><span class='line'>
+</span><span class='line'><span class="c">#That&#39;s pretty straightforward!  </span>
+</span><span class='line'><span class="c">#Now I can visit `https://localhost` </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now all I had to do was copy the files from the folder given to me into the
+<code>/var/www/dasa</code> folder. I did and voila! It was working.</p>
+
+<h3>Footnote:</h3>
+
+<p>Whenever you copy some files into the /var/www, you have to enable <code>+rwx</code> using
+the command above. Instead, you could just add a folder mask to this folder so
+whatever files you copy will get suitable permissions:</p>
+
+<p><code>umask 0000</code></p>
+
+<p>That will make sure all the files that come into the directory will not lose
+any permissions.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to reinstall a package using aptitude in Ubuntu?]]></title>
+    <link href="http://ephemeral.me/blog/2013/02/13/how-to-reinstall-a-package-using-aptitude-in-ubuntu/"/>
+    <updated>2013-02-13T13:14:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/02/13/how-to-reinstall-a-package-using-aptitude-in-ubuntu</id>
+    <content type="html"><![CDATA[<p>So I was installing OpenCV - compiling it from source, infact. It needs <code>libgobject2.0-0.so</code>
+which it couldn&#8217;t find - I don&#8217;t know why. And this problem was hardly faced by anyone
+else which means it has to be because it&#8217;s a pretty common library and I&#8217;d lost
+it due to my usual fiddling around.</p>
+
+<p><strong>TLDR;</strong> The package had to be reinstalled.</p>
+
+<!-- more -->
+
+
+<p>How? Haha. Sounds easy? Can&#8217;t uninstall and reinstall - a package manager doesn&#8217;t
+allow you to uninstall a package if it is depended upon by other packages. So
+what way is there to reinstall?</p>
+
+<p>RTFM.</p>
+
+<p><code>sudo apt-get install libglib2 --reinstall</code>.</p>
+
+<p>That&#8217;s it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Step 1 of HCI-MP: Installing OpenGL + OpenCV]]></title>
+    <link href="http://ephemeral.me/blog/2013/02/13/step-1-of-hci-mp-installing-opengl-plus-opencv/"/>
+    <updated>2013-02-13T02:14:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/02/13/step-1-of-hci-mp-installing-opengl-plus-opencv</id>
+    <content type="html"><![CDATA[<p>I need to install OpenCV and OpenGL to work together for my project. So here are the
+notes I took while installing OpenGL and OpenCV:</p>
+
+<figure class='code'><figcaption><span>Installing OpenGL </span><a href='http://singhgurjot.wordpress.com/2012/05/17/how-to-install-openglglut-libraries-in-ubuntu-12-04/'>From here:</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install freeglut3 freeglut3-dev
+</span><span class='line'>sudo apt-get install binutils-gold
+</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<p>Installing OpenCV, on the other hand, is a tedious task. Here is the procedure
+in a nutshell:</p>
+
+<figure class='code'><figcaption><span>Installing OpenCV </span><a href='http://www.samontab.com/web/2012/06/installing-opencv-2-4-1-ubuntu-12-04-lts/'>From excellent guide here:</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get upgrade
+</span><span class='line'>
+</span><span class='line'>sudo apt-get install build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy python-tk libtbb-dev libeigen2-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev libqt4-dev libqt4-opengl-dev sphinx-common texlive-latex-extra libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev
+</span><span class='line'>
+</span><span class='line'><span class="nb">cd</span> ~
+</span><span class='line'>wget http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.1/OpenCV-2.4.1.tar.bz2
+</span><span class='line'>tar -xvf OpenCV-2.4.1.tar.bz2
+</span><span class='line'><span class="nb">cd </span>OpenCV-2.4.1
+</span><span class='line'>
+</span><span class='line'>mkdir build
+</span><span class='line'><span class="nb">cd </span>build
+</span><span class='line'>cmake -D <span class="nv">WITH_TBB</span><span class="o">=</span>ON -D <span class="nv">BUILD_NEW_PYTHON_SUPPORT</span><span class="o">=</span>ON -D <span class="nv">WITH_V4L</span><span class="o">=</span>ON -D <span class="nv">INSTALL_C_EXAMPLES</span><span class="o">=</span>ON -D <span class="nv">INSTALL_PYTHON_EXAMPLES</span><span class="o">=</span>ON -D <span class="nv">BUILD_EXAMPLES</span><span class="o">=</span>ON -D <span class="nv">WITH_QT</span><span class="o">=</span>ON -D <span class="nv">WITH_OPENGL</span><span class="o">=</span>ON ..
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we gotta check in the generated output if Python, OpenGL supports are ticked. Qt
+can also be checked for, but I didn&#8217;t want it, so I ignored that part.</p>
+
+<p>If OpenGL is not ticked, that&#8217;s because you need to install GTK+ Extensions for OpenGL, which you can do by:</p>
+
+<figure class='code'><figcaption><span>GTK+ Extensions for OpenGL </span><a href='http://stackoverflow.com/questions/11035500/trying-to-build-opencv-2-4-1-with-opengl-support'>SO Question here:</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install libgtkglext1 libgtkglext1-dev
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once we are done, we are all set to install OpenCV:</p>
+
+<figure class='code'><figcaption><span>Installing OpenCV </span><a href='http://www.samontab.com/web/2012/06/installing-opencv-2-4-1-ubuntu-12-04-lts/'>From excellent guide here:</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>make
+</span><span class='line'>sudo make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may need to log-out and log-in again. Now you have installed OpenCV and OpenGL.</p>
+]]></content>
+  </entry>
+  
+</feed>

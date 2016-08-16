@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: technology | the Ephemeral Me]]></title>
+  <link href="http://ephemeral.me/blog/categories/technology/atom.xml" rel="self"/>
+  <link href="http://ephemeral.me/"/>
+  <updated>2016-08-16T10:01:41+00:00</updated>
+  <id>http://ephemeral.me/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[embracing the vim way]]></title>
+    <link href="http://ephemeral.me/blog/2013/08/18/experiencing-vim-everywhere/"/>
+    <updated>2013-08-18T19:05:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/08/18/experiencing-vim-everywhere</id>
+    <content type="html"><![CDATA[<p>There are several reasons why vim is the best friend of a keyboard warrior.
+The ever-lasting emacs-vim war aside, I think vim is the best way to interact
+with your computer. For me the philosophy of vim is fascinating and I love it
+and I use it wherever I can. Today it just got better for me, and I'm
+going to show how.</p>
+
+<!-- more -->
+
+
+<p>So I was doing this usual business of going through hackernews and /r/hacking
+and /r/technology, and I come across this article where someone said - I badly
+want to remember who, but I am not able to - he uses vim, vimperator and i3. I
+blindly clicked on the hyperlinks to discover two beautiful things I'm gonna
+use for a very long time now - vimperator (and it's counterpart vrome) and i3.</p>
+
+<h2>vimperator (vrome) - browse vim style</h2>
+
+<p><a href="http://www.vimperator.org/vimperator">vimperator</a> is an add-in for firefox. It gives
+the user the ability to use firefox as if it were vim. No I'm not talking about
+a text-based browser, I'm talking about the normal firefox with a vim-like
+keyboard interface. It adds a sleuth of abilities to firefox including
+hjkl-movements, ex commands, marks, tab-completion and so many others I can't
+yet fathom a browser can have yet.<br/>
+<a href="https://chrome.google.com/webstore/detail/vrome/godjoomfiimiddapohpmfklhgmbfffjj">vrome</a>
+- the counterpart for vimperator on google-chrome. vrome takes it a step further
+with a menu appearing whenever you type <code>:</code> (obviously not within a text box).
+The range of commands available at hand in both vimperator and vrome is
+amazing.</p>
+
+<p><img src="/images/vim1.jpg" alt="vrome" /></p>
+
+<h2>i3: refreshing!</h2>
+
+<p>Now I set out to try <a href="http://i3wm.org">i3</a>: the other thing that grabbed my attention.
+While I had my antennas focused because of the term <code>tiling window manager</code>, I
+never expected something so nice. i3 turns out to be an easy-to-install tiling
+window manager that imbibes most of the vim philosophy.</p>
+
+<p>There's a nice manual on how to install it on almost any flavor of linux,
+especially debian. (I use an Ubuntu 12.04, and I used to use Unity/awesomewm till
+now.) Once installed, it gave me two important things: the i3 wm itself,
+accessible from gdm on log-in and the <code>i3bar</code>, the taskbar on the bottom.
+Everything just worked, inluding the default settings wizard, the <code>nm-applet</code>, and
+the very useful <code>dmenu</code>. I was underway in a matter of minutes because it was
+all familiar <code>vim</code> territory.</p>
+
+<p><img src="/images/vim2.jpg" alt="i3" /></p>
+
+<p>Apart from being a vim-inspired wm, i3 also stresses on having a clean codebase,
+very nice hackability and great manuals - just what you need for a stong open
+source project.</p>
+
+<p>Overall, today has been one of those days when your laptop suddenly gets this
+huge makeover and facelift (not always). This time, I doubt if I'll ever go
+back.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Option parsing in Python scripts]]></title>
+    <link href="http://ephemeral.me/blog/2013/07/16/option-parsing-in-python-scripts/"/>
+    <updated>2013-07-16T15:12:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/07/16/option-parsing-in-python-scripts</id>
+    <content type="html"><![CDATA[<p>Just wrote a command-line python script and want to spread the happiness to
+others by passing it on? If your last hurdle to this is adding ability to take
+command line options like those (cool) shell scripts, here is your solution.</p>
+
+<!-- more -->
+
+
+<p>Now while it is possible to parse the arguments by taking the arguments as
+string by doing this,:</p>
+
+<p>``` python Arguments using sys.argv
+import sys
+arguments = sys.argv</p>
+
+<h1><scriptname> hello -o filename</h1>
+
+<h1>will give sys.argv = [scriptname hello -o filename]</h1>
+
+<p>```</p>
+
+<p>the approach is tedious and you will end up more time accounting for various
+permutations and combinations.</p>
+
+<h2>./introduce.py <code>--</code>module optprase</h2>
+
+<p>Python is definitely a nicer world, and there is <code>optparse</code> to your rescue.</p>
+
+<p><strong>NOTE</strong>: <a href="http://docs.python.org/2/library/optparse.html"><code>optparse</code></a> is only until python 2.7, in python >3.0, there is
+<a href="http://docs.python.org/dev/library/argparse.html"><code>argparse</code></a>.</p>
+
+<p>``` python argparse example
+import optparse</p>
+
+<h1>argparse in python >3.0, visit http://docs.python.org/dev/library/argparse.html</h1>
+
+<p>parser = optparse.OptionParser()
+parser.add_option("-f", "--file",               #the long and short option</p>
+
+<pre><code>                dest="filename",            #name in the options dict
+                help="write report to FILE",#help text for --help
+                metavar="FILE")             #notice the help text.
+</code></pre>
+
+<p>parser.add_option("-q", "--quiet",              #again, option names</p>
+
+<pre><code>                dest="verbose",             #name in options dict
+                action="store_false",       #special way to say, store False
+                default="true",             #default value
+                help="dont print the status messages")
+</code></pre>
+
+<p>(options, args) = parser.parse_args()           #notice, returned list is unpacked
+print options, args                             #refer the output in the next section
+#</p>
+
+<h1>./<scriptname> -f filename -q other-arguments</h1>
+
+<h1>./<scriptname> -qf filename other-arguments</h1>
+
+<h1>./<scriptname> -q -ffilename other-arguments</h1>
+
+<h1>./<scriptname> --quiet --file filename other-arguments</h1>
+
+<h1>all these will give an output</h1>
+
+<h1>options                                  args</h1>
+
+<h1>{'verbose': False, 'filename': 'myfile'} [other-arguments, ]</h1>
+
+<p>```</p>
+
+<p>Before I go any further, let me also show the output of this script.</p>
+
+<p>``` bash argparse output
+[pharos_user@pdevdv3os1dv ~]$ python optparser.py -qf myfile other-arguments
+{'verbose': False, 'filename': 'myfile'} ['other-arguments']
+[pharos_user@pdevdv3os1dv ~]$ python optparser.py --help
+usage: optparser.py [options]</p>
+
+<p>options:
+-h, --help            show this help message and exit
+-f FILE, --file=FILE  write report to FILE
+-q, --quiet           dont print the status messages
+```</p>
+
+<p>It's apparent that:</p>
+
+<ul>
+<li>A <code>--help</code> or <code>-h</code> option is, rather conveniently, automatically added, which
+prints traditionally styled help text.</li>
+<li><code>help</code> option to <code>parser.add_option</code> provides the help text of each option for the automatically
+produced <code>--help</code> usage.</li>
+<li><code>dest</code> is the variable name in which the option data is stored in the
+<code>options</code> dictionary.</li>
+<li><code>action</code> tells that IF the option is given, then store <code>False</code> in the variable
+provided by <code>dest</code>.</li>
+<li><code>default</code>, no surprise here, is the default value for the option.</li>
+<li>Once we get all the options in the dictionary called options, the remaining
+arguments are stored in <code>args</code>.</li>
+</ul>
+
+
+<h2>Footnotes</h2>
+
+<h3>Return value unpacking in python</h3>
+
+<p>Did you notice how we slickly wrote <code>(options, args) = parser.parse_args()</code>, and
+two values went into <code>options</code> and <code>args</code> seperately?</p>
+
+<p>Actually, the function is returning two values in a tuple. If we write a
+function like this:</p>
+
+<p>```python multiple return values
+def foo():</p>
+
+<pre><code>return 1, 2, 3
+</code></pre>
+
+<p>a, b, c = foo()</p>
+
+<h1>a=1, b=2, c=3</h1>
+
+<p>```</p>
+
+<p>Got that? Now again, what if you don't want to store <code>a</code> and <code>b</code>, and just want to
+take <code>c</code>?</p>
+
+<p>``` python ignore some returns</p>
+
+<h1>both these work:</h1>
+
+<p><em>, </em>, c = foo() #ignore first two return values
+c = foo()[2]</p>
+
+<h1>which means even this works:</h1>
+
+<p>b, c = foo()[1:] #awesome!
+```</p>
+
+<h3>Single letter and long options in shell</h3>
+
+<p>When a command is called, there can be either a single letter option: <code>ls -a</code> or
+a long form of the option <code>ls --all</code>.</p>
+
+<ul>
+<li>Shorter options can be combined together:
+<code>ls -lah</code> also means <code>ls -l -a -h</code>.</li>
+<li>Option with arguments also can be mixed with
+options without: <code>script -qf filename</code> is same as <code>script -q -f filename</code>.</li>
+<li>Also, notice how single letter option with argument can be written as <code>script
+-ffilename</code> without a space between argument and option.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Trivia]]></title>
+    <link href="http://ephemeral.me/blog/2013/07/08/trivia/"/>
+    <updated>2013-07-08T11:12:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/07/08/trivia</id>
+    <content type="html"><![CDATA[<p>There are many things that I find randomly on Internet that I want to remember.
+Until I make an app to organize these bits of knowledge (wait, that might be a
+worthy project in itself), I am going to store them here.</p>
+
+<!-- more -->
+
+
+<h2>iPython inside virtualenv</h2>
+
+<p>Launching iPython inside virtualenv creates problems - it doesn't obey the
+restrictions placed by virtualenv about restricting itself inside the virtual
+environment and tries to load packages from system library when you <code>import</code>
+etc.</p>
+
+<p>Here is how to launch it so it uses the correct Python version inside the
+virtual environment, thanks to <a href="https://coderwall.com/p/xdox9a">Hatem Nassrat</a>.</p>
+
+<p><code>bash alias for iPython inside virtualenv
+alias ipy="python -c 'import IPython;
+IPython.frontend.terminal.ipapp.launch_new_instance()'"
+</code></p>
+
+<h2>sudo -s</h2>
+
+<p>Gives root access even if you dont have the <code>root</code> username access.
+I dont know how this works, I'll have to read up about it.</p>
+
+<h2>NERDTree autoclose when file closed</h2>
+
+<p><a href="https://github.com/scrooloose/nerdtree">NERDTree</a> by Martin Grefnell is easily
+one of the most performance-increasing vim plugins, causing you to be highly
+productive. While there are several options that can make your life with
+NERDTree easy, there is one thing that's not so straightforward.</p>
+
+<p>When you close a file in vim, say there was NERDTree open in the side. It
+remains open, and becomes the only open window in the vim instance, forcing you
+to manually close that window too. While you <em>can</em> say <code>:wqa</code> and close all
+windows, including NERDTree, you can also use this neat little trick to close
+the NERDTree automatically on closing the last editor window:</p>
+
+<p><code>bash put this in a single line in your ~/.vimrc
+autocmd bufenter * if (winnr("$") == 1 &amp;&amp; exists("b:NERDTreeType") &amp;&amp; b:NERDTreeType == "primary") | q | endif
+</code></p>
+
+<h2>Tab in vim</h2>
+
+<p>As followed by several programmers around the world, the best practices for
+indenting code is, to have a 4-space tab. This makes code easy to read while not
+causing too much indentation and as a result make it difficult to follow the
+80-character width limit.</p>
+
+<p>But vim's default is a 8-space tab, and it's not 8 spaces but a <code>\t</code> tab
+character. To make this right, add this one line to your .vimrc:</p>
+
+<p><code>bash put this in your ~/.vimrc
+set tabstop=4 shiftwidth=4 expandtab
+</code></p>
+
+<p>Obviously, here <code>expandtab</code> means split a tab into 4 spaces. <code>tabstop=4</code> makes
+the tab's width 4, while <code>shiftwidth=4</code> causes the automatically inserted
+indentation to also have 4 spaces.</p>
+
+<h2>Screen session names</h2>
+
+<p>If you have a remote computer or if you connect to a remote computer, and use
+screen over ssh, you might have noticed that it's a pain to track multiple
+screen sessions - you have to remember the <code>pid</code>s - and you have to often open
+every session one by one.</p>
+
+<p>Here is the easiest way to manage that -</p>
+
+<p>To start a new session with a sessionname, just do</p>
+
+<p><code>bash new session with name "webAdmin"
+screen -S webAdmin
+</code></p>
+
+<p>To edit an existing session's name,</p>
+
+<p><code>bash edit session name of current session
+C-a :
+sessionname webAdmin
+</code></p>
+
+<p>To list the existing screen sessions, you could
+<code>bash list sessions
+sddhrthrt@bellakki:~$ screen -list
+There are screens on:
+32090.blog      (07/08/2013 11:26:26 AM)        (Detached)
+8306.scrapy     (06/19/2013 09:40:55 AM)        (Detached)
+15387.meteor    (06/10/2013 11:40:21 AM)        (Detached)
+3 Sockets in /var/run/screen/S-sddhrthrt.
+</code></p>
+
+<p>And finally, connect to either session by just:
+<code>bash reattach to the session named "scrapy"
+screen -r scrapy
+</code></p>
+
+<h2>Command line options parsing in Python</h2>
+
+<p>Just wrote a command-line python script and want to spread the happiness to
+others by passing it on? If your last hurdle to this is adding ability to take
+command line options like those (cool) shell scripts, <a href="/blog/2013/07/16/option-parsing-in-python-scripts/">here is your solution</a>.</p>
+
+<h2>Extract link URLs from a webpage</h2>
+
+<p>How to extract all link URLs from a webpage? Here are two ways:</p>
+
+<p>```bash list all links
+cat index.html |\</p>
+
+<pre><code>grep -o '&lt;a .*href=.*&gt;' | \
+sed -e 's/&lt;a /\n&lt;a /g' | \
+sed -e 's/&lt;a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d'
+</code></pre>
+
+<p>```</p>
+
+<p>Credits to
+<a href="http://stackoverflow.com/questions/1881237/easiest-way-to-extract-the-urls-from-an-html-page-using-sed-or-awk-only">Crisboot</a>'s
+answer to a question. Now I am not entirely sure about every step of the
+command, and I'm still understanding bits of that hugeass regex, so dont ask me.
+But hey, this is meant to a (sort of) cookbook, so dont be too serious, just
+copy paste. :P</p>
+
+<p>Oh and a better solution, although tied to lynx, is:</p>
+
+<p><code>bash list all links
+lynx -dump -listonly
+</code></p>
+
+<h2>Ctrl-R backwards history search in z-shell</h2>
+
+<p>Ever furiously tapped Ctrl-R in zsh hoping that reverse history search (the
+awesome friend that helps when you forgot what magic command you used the last time)
+and found it doesn't work? Turns out it's not bound to anything at all in vim
+mode. So go to your <code>~/zshrc</code> and add this:</p>
+
+<p><code>bash Ctrl-R search in zsh for reverse history search
+bindkey "^R" history-incremental-search-backward
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Screencasting in Ubuntu - Ultimate Solution]]></title>
+    <link href="http://ephemeral.me/blog/2013/05/07/screencasting-in-ubuntu-ultimate-solution/"/>
+    <updated>2013-05-07T04:00:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/05/07/screencasting-in-ubuntu-ultimate-solution</id>
+    <content type="html"><![CDATA[<p>While doing a couple of screencasts that we had to do as a part of our course, I
+went through the process of learning how to create a screencast with just the
+basic <a href="http://www.ffmpeg.org/">ffmpeg</a> tool. After facing a couple of hurdles and several iterations of
+juggling with settings later, I finally came up with the right recipe: It works
+smooth as a charm.</p>
+
+<!-- more -->
+
+
+<p>Without further ado, here is the final combo that worked:</p>
+
+<p>``` bash Screencasting recipe</p>
+
+<pre><code>ffmpeg -f alsa -ac 2 -i pulse -acodec alac -ab 128k -f x11grab 
+-s `xdpyinfo | grep 'dimensions:'|awk '{print $2}'` -r 25 -i :0.0 -sameq
+final.mkv
+</code></pre>
+
+<p>```</p>
+
+<p>Here, <code>ffmpeg</code> is the tool that comes with the linux toolkit - it's used for
+recording/transcoding video. This can do almost everything you want it to do in
+terms of video/audio encoding/transcoding/cropping/merging or whatever.</p>
+
+<p>The options:</p>
+
+<ul>
+<li><p><code>-f alsa</code> means use format <a href="https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture"><code>alsa</code></a>. It's an audio format, and when you
+mention an audio format, <code>ffmpeg</code> knows that it should use the format for the
+audio channel.</p></li>
+<li><p><code>-ac 2</code> tells <code>ffmpeg</code> to record 2 channels of audio with the video.</p></li>
+<li><p><code>-i pulse</code> - mind you, many tutorials out there suggest you to use <code>-i hw:0,0</code>
+or something similar. This did not work great for me, in fact, it worked much
+worse. Audio was crackling, video lagged and slowly audio and video lost sync
+along with time.</p></li>
+<li><p><code>-acodec alac</code> asks <code>ffmpeg</code> to use a particular codec, and it worked well.</p></li>
+<li><code>-ab 128k</code> asks <code>ffmpeg</code> to use 128kbit/s audio bitrate. This is good enough
+for most applications.</li>
+<li><code>-f x11grab</code> is the next format we are going to use - it's the screengrabbing
+format.</li>
+<li><code>-s `xdpyinfo | grep 'dimensions:'|awk '{print #2}'`</code> - this piece of code
+here actually fetches your screen size! It gives the screen width and height
+as input to the <code>-s</code> option, as the size of the screen to be captured.</li>
+<li><code>-r 25</code> denotes the frame rate. 25 should usually work, unless your screen has
+a specific application running in a particular framerate and you need to
+capture it in that particular framerate. You could actually experiment around
+it to get good results.</li>
+<li><code>-i :0.0</code> asks <code>ffmpeg</code> to take video input from the <a href="http://www.x.org/archive/X11R6.8.1/doc/X.7.html">:0.0</a> - that's
+the first screen connected to the computer.</li>
+<li><code>-sameq</code> modifier tells ffmpeg to keep the same quality as input - that's
+kinda making the solution easier.</li>
+</ul>
+
+
+<h3>Important things to keep in mind during a screencast:</h3>
+
+<ul>
+<li><p>Never use the laptop keyboard if your recording rig is a laptop - the laptop
+key clicks get recorded in the mic. Apparently <a href="noiseremoval">Thinkpad is bringing a new
+solution</a> for this problem.</p></li>
+<li><p>Sit in a place without much wind directly hitting your mic. Clean the mic and
+the hole where it's hosted - helps improve the sound.</p></li>
+<li><p>You could use vlc/smplayer and open up a window with webcam on the screen, so
+you could have yourself on the screencasting. Here's how to do it for
+smplayer:</p></li>
+</ul>
+
+
+<p><code>bash Showing webcam in mplayer
+  mplayer -tv driver=v4l2:gain=1:width=640:height=480:device=/dev/video0:fps=10:outfmt=rgb16 tv://
+</code></p>
+
+<ul>
+<li>Alright, after you record in the aforementioned way, you might want to convert
+the mkv to avi or some other lighter format - actually the bitrate is quite
+for the video because of the <code>-sameq</code> modifier. If you actually mention a
+lower bitrate for the video part, the size may decrease. I got 190MB for a 15
+minute video.</li>
+</ul>
+
+
+<p>Happy Screencasting!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to configure an SSL site in Ubuntu?]]></title>
+    <link href="http://ephemeral.me/blog/2013/02/13/how-to-configure-a-ssl-site-in-ubuntu/"/>
+    <updated>2013-02-13T15:48:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/02/13/how-to-configure-a-ssl-site-in-ubuntu</id>
+    <content type="html"><![CDATA[<p>A part of my Software Engineering project is this (specially :P) assigned task
+of reverse engineering a website for my department. This site for
+<a href="dasanit.org">DASA</a> applicants is a <code>https</code> site, obviously, and I had to
+install this locally. Well, this just happens to be my first journey into the
+world of php. I got the site from the maintainer, who is pretty new to the role
+too. Now there were two folders, one which had all the files of the site,
+another with the database dump.</p>
+
+<!-- more -->
+
+
+<p>Here is what to do when you are in a situation like this - create a new site
+using HTTPS or something.</p>
+
+<p>First, let's start with installing the L(inux)A(pache)M(ysql)P(hp/ython) stack
+in your Ubuntu machine. There is an excellent method to do this:</p>
+
+<p>``` bash Installing the lamp stack</p>
+
+<p>sudo apt-get install tasksel
+sudo tasksel</p>
+
+<p>```</p>
+
+<p>Now select the LAMP stack option (usually the 4th). Press enter and you are
+done with installing the LAMP stack. Visit <code>localhost</code> with your browser to
+confirm - you should see something other than the usual boring error message
+'page not found'</p>
+
+<p>Now you have to configure the site.</p>
+
+<p>``` bash Configuring a new site in Apache2</p>
+
+<h1>change to the /var/www directory</h1>
+
+<p>cd /var/www</p>
+
+<h1>change permissions - otherwise you will have to struggle later.</h1>
+
+<h1>do this if this is your own computer. Otherwise change permissions of</h1>
+
+<h1>individual directories as you go ahead.</h1>
+
+<p>sudo chown -R username:username /var/www</p>
+
+<h1>This step is dangerous on someone else's computer too - but on your own</h1>
+
+<h1>personal machine, chill!</h1>
+
+<p>sudo chmod +rwx -R /var/www</p>
+
+<p>mkdir /var/www/dasa</p>
+
+<h1>now it's time to create the ssl:</h1>
+
+<h1>when you visit with your browser to https://localhost, we should get the same</h1>
+
+<h1>page as you got previously, after following the steps below.</h1>
+
+<p>sudo a2enmod ssl</p>
+
+<h1>use the default ssl site configuration to create one of your own:</h1>
+
+<p>sudo cd /etc/apache2/sites-available/
+sudo cp default-ssl ssl
+sudo gedit ssl
+```</p>
+
+<p>Now edit the file and change the line in the top from <code>&lt;VirtualHost _default_:443&gt;</code>
+to <code>&lt;VirtualHost *:443&gt;</code> and save the file.</p>
+
+<p>``` bash Save and restart.
+sudo a2ensite ssl
+sudo service apache2 restart</p>
+
+<h1>That's pretty straightforward!</h1>
+
+<h1>Now I can visit <code>https://localhost</code></h1>
+
+<p>```</p>
+
+<p>Now all I had to do was copy the files from the folder given to me into the
+<code>/var/www/dasa</code> folder. I did and voila! It was working.</p>
+
+<h3>Footnote:</h3>
+
+<p>Whenever you copy some files into the /var/www, you have to enable <code>+rwx</code> using
+the command above. Instead, you could just add a folder mask to this folder so
+whatever files you copy will get suitable permissions:</p>
+
+<p><code>umask 0000</code></p>
+
+<p>That will make sure all the files that come into the directory will not lose
+any permissions.</p>
+]]></content>
+  </entry>
+  
+</feed>

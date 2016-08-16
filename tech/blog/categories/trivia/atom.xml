@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: trivia | the Ephemeral Me]]></title>
+  <link href="http://ephemeral.me/blog/categories/trivia/atom.xml" rel="self"/>
+  <link href="http://ephemeral.me/"/>
+  <updated>2016-08-16T10:01:41+00:00</updated>
+  <id>http://ephemeral.me/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Trivia]]></title>
+    <link href="http://ephemeral.me/blog/2013/07/08/trivia/"/>
+    <updated>2013-07-08T11:12:00+00:00</updated>
+    <id>http://ephemeral.me/blog/2013/07/08/trivia</id>
+    <content type="html"><![CDATA[<p>There are many things that I find randomly on Internet that I want to remember.
+Until I make an app to organize these bits of knowledge (wait, that might be a
+worthy project in itself), I am going to store them here.</p>
+
+<!-- more -->
+
+
+<h2>iPython inside virtualenv</h2>
+
+<p>Launching iPython inside virtualenv creates problems - it doesn't obey the
+restrictions placed by virtualenv about restricting itself inside the virtual
+environment and tries to load packages from system library when you <code>import</code>
+etc.</p>
+
+<p>Here is how to launch it so it uses the correct Python version inside the
+virtual environment, thanks to <a href="https://coderwall.com/p/xdox9a">Hatem Nassrat</a>.</p>
+
+<p><code>bash alias for iPython inside virtualenv
+alias ipy="python -c 'import IPython;
+IPython.frontend.terminal.ipapp.launch_new_instance()'"
+</code></p>
+
+<h2>sudo -s</h2>
+
+<p>Gives root access even if you dont have the <code>root</code> username access.
+I dont know how this works, I'll have to read up about it.</p>
+
+<h2>NERDTree autoclose when file closed</h2>
+
+<p><a href="https://github.com/scrooloose/nerdtree">NERDTree</a> by Martin Grefnell is easily
+one of the most performance-increasing vim plugins, causing you to be highly
+productive. While there are several options that can make your life with
+NERDTree easy, there is one thing that's not so straightforward.</p>
+
+<p>When you close a file in vim, say there was NERDTree open in the side. It
+remains open, and becomes the only open window in the vim instance, forcing you
+to manually close that window too. While you <em>can</em> say <code>:wqa</code> and close all
+windows, including NERDTree, you can also use this neat little trick to close
+the NERDTree automatically on closing the last editor window:</p>
+
+<p><code>bash put this in a single line in your ~/.vimrc
+autocmd bufenter * if (winnr("$") == 1 &amp;&amp; exists("b:NERDTreeType") &amp;&amp; b:NERDTreeType == "primary") | q | endif
+</code></p>
+
+<h2>Tab in vim</h2>
+
+<p>As followed by several programmers around the world, the best practices for
+indenting code is, to have a 4-space tab. This makes code easy to read while not
+causing too much indentation and as a result make it difficult to follow the
+80-character width limit.</p>
+
+<p>But vim's default is a 8-space tab, and it's not 8 spaces but a <code>\t</code> tab
+character. To make this right, add this one line to your .vimrc:</p>
+
+<p><code>bash put this in your ~/.vimrc
+set tabstop=4 shiftwidth=4 expandtab
+</code></p>
+
+<p>Obviously, here <code>expandtab</code> means split a tab into 4 spaces. <code>tabstop=4</code> makes
+the tab's width 4, while <code>shiftwidth=4</code> causes the automatically inserted
+indentation to also have 4 spaces.</p>
+
+<h2>Screen session names</h2>
+
+<p>If you have a remote computer or if you connect to a remote computer, and use
+screen over ssh, you might have noticed that it's a pain to track multiple
+screen sessions - you have to remember the <code>pid</code>s - and you have to often open
+every session one by one.</p>
+
+<p>Here is the easiest way to manage that -</p>
+
+<p>To start a new session with a sessionname, just do</p>
+
+<p><code>bash new session with name "webAdmin"
+screen -S webAdmin
+</code></p>
+
+<p>To edit an existing session's name,</p>
+
+<p><code>bash edit session name of current session
+C-a :
+sessionname webAdmin
+</code></p>
+
+<p>To list the existing screen sessions, you could
+<code>bash list sessions
+sddhrthrt@bellakki:~$ screen -list
+There are screens on:
+32090.blog      (07/08/2013 11:26:26 AM)        (Detached)
+8306.scrapy     (06/19/2013 09:40:55 AM)        (Detached)
+15387.meteor    (06/10/2013 11:40:21 AM)        (Detached)
+3 Sockets in /var/run/screen/S-sddhrthrt.
+</code></p>
+
+<p>And finally, connect to either session by just:
+<code>bash reattach to the session named "scrapy"
+screen -r scrapy
+</code></p>
+
+<h2>Command line options parsing in Python</h2>
+
+<p>Just wrote a command-line python script and want to spread the happiness to
+others by passing it on? If your last hurdle to this is adding ability to take
+command line options like those (cool) shell scripts, <a href="/blog/2013/07/16/option-parsing-in-python-scripts/">here is your solution</a>.</p>
+
+<h2>Extract link URLs from a webpage</h2>
+
+<p>How to extract all link URLs from a webpage? Here are two ways:</p>
+
+<p>```bash list all links
+cat index.html |\</p>
+
+<pre><code>grep -o '&lt;a .*href=.*&gt;' | \
+sed -e 's/&lt;a /\n&lt;a /g' | \
+sed -e 's/&lt;a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d'
+</code></pre>
+
+<p>```</p>
+
+<p>Credits to
+<a href="http://stackoverflow.com/questions/1881237/easiest-way-to-extract-the-urls-from-an-html-page-using-sed-or-awk-only">Crisboot</a>'s
+answer to a question. Now I am not entirely sure about every step of the
+command, and I'm still understanding bits of that hugeass regex, so dont ask me.
+But hey, this is meant to a (sort of) cookbook, so dont be too serious, just
+copy paste. :P</p>
+
+<p>Oh and a better solution, although tied to lynx, is:</p>
+
+<p><code>bash list all links
+lynx -dump -listonly
+</code></p>
+
+<h2>Ctrl-R backwards history search in z-shell</h2>
+
+<p>Ever furiously tapped Ctrl-R in zsh hoping that reverse history search (the
+awesome friend that helps when you forgot what magic command you used the last time)
+and found it doesn't work? Turns out it's not bound to anything at all in vim
+mode. So go to your <code>~/zshrc</code> and add this:</p>
+
+<p><code>bash Ctrl-R search in zsh for reverse history search
+bindkey "^R" history-incremental-search-backward
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Screencasting in Ubuntu - Ultimate Solution - the Ephemeral Me</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="While doing a couple of screencasts that we had to do as a part of our course, I
+went through the process of learning how to create a screencast with just the
+basic ffmpeg tool. After facing a couple of hurdles and several iterations of
+juggling &hellip;">
+  
+  <meta name="keywords" content="">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ephemeral.me/blog/2013/05/07/screencasting-in-ubuntu-ultimate-solution/">
+  <link href="/glider.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="the Ephemeral Me" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Sail' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,300,300italic' rel='stylesheet' type='text/css'>
+
+  
+
+  <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                  ga('create', 'UA-36548793-2', 'ephemeral.me');
+                  ga('send', 'pageview');
+
+  </script>
+  
+
+</head>
+
+<body >
+  <header role="banner"><hgroup>
+  <h1><a href="/">the Ephemeral Me</a></h1>
+  
+    <h2>Just like life - we appear, we disappear. So important to some; but for some, just passing by.</h2>
+  
+  <div class="rightbuttons">
+      <a href="http://www.github.com/sddhrthrt"><div class="button g">g</div></a>
+      <a href="http://twitter.com/home?status=Interesting%20blog%20by%20@tweetingsid: worth checking out.  http://ephemeral.me - I liked it!" target="_blank"><div class="button t">t</div></a>
+      <a href="mailto:sddhrthrt@gmail.com"><div class="button m">m</div></a>
+  </div>
+</hgroup>
+
+</header>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">Screencasting in Ubuntu - Ultimate Solution</h1>
+      
+    
+    
+      <p class="meta">
+       
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-07T04:00:00+00:00" pubdate data-updated="true">May 7<span>th</span>, 2013</time> &middot; 
+
+<span class="categories">
+    in 
+    <span class="tags">
+  
+    <a class='category' href='/blog/categories/howto/'>howto</a>, <a class='category' href='/blog/categories/technology/'>technology</a>
+    
+    </span>
+</span>
+
+
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>While doing a couple of screencasts that we had to do as a part of our course, I
+went through the process of learning how to create a screencast with just the
+basic <a href="http://www.ffmpeg.org/">ffmpeg</a> tool. After facing a couple of hurdles and several iterations of
+juggling with settings later, I finally came up with the right recipe: It works
+smooth as a charm.</p>
+
+<!-- more -->
+
+
+<p>Without further ado, here is the final combo that worked:</p>
+
+<figure class='code'><figcaption><span>Screencasting recipe</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ffmpeg -f alsa -ac 2 -i pulse -acodec alac -ab 128k -f x11grab
+</span><span class='line'>-s <span class="sb">`</span>xdpyinfo | grep <span class="s1">&#39;dimensions:&#39;</span>|awk <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span> -r 25 -i :0.0 -sameq
+</span><span class='line'>final.mkv
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here, <code>ffmpeg</code> is the tool that comes with the linux toolkit - it&#8217;s used for
+recording/transcoding video. This can do almost everything you want it to do in
+terms of video/audio encoding/transcoding/cropping/merging or whatever.</p>
+
+<p>The options:</p>
+
+<ul>
+<li><p><code>-f alsa</code> means use format <a href="https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture"><code>alsa</code></a>. It&#8217;s an audio format, and when you
+mention an audio format, <code>ffmpeg</code> knows that it should use the format for the
+audio channel.</p></li>
+<li><p><code>-ac 2</code> tells <code>ffmpeg</code> to record 2 channels of audio with the video.</p></li>
+<li><p><code>-i pulse</code> - mind you, many tutorials out there suggest you to use <code>-i hw:0,0</code>
+or something similar. This did not work great for me, in fact, it worked much
+worse. Audio was crackling, video lagged and slowly audio and video lost sync
+along with time.</p></li>
+<li><p><code>-acodec alac</code> asks <code>ffmpeg</code> to use a particular codec, and it worked well.</p></li>
+<li><code>-ab 128k</code> asks <code>ffmpeg</code> to use 128kbit/s audio bitrate. This is good enough
+for most applications.</li>
+<li><code>-f x11grab</code> is the next format we are going to use - it&#8217;s the screengrabbing
+format.</li>
+<li><code>-s `xdpyinfo | grep 'dimensions:'|awk '{print #2}'`</code> - this piece of code
+here actually fetches your screen size! It gives the screen width and height
+as input to the <code>-s</code> option, as the size of the screen to be captured.</li>
+<li><code>-r 25</code> denotes the frame rate. 25 should usually work, unless your screen has
+a specific application running in a particular framerate and you need to
+capture it in that particular framerate. You could actually experiment around
+it to get good results.</li>
+<li><code>-i :0.0</code> asks <code>ffmpeg</code> to take video input from the <a href="http://www.x.org/archive/X11R6.8.1/doc/X.7.html">:0.0</a> - that&#8217;s
+the first screen connected to the computer.</li>
+<li><code>-sameq</code> modifier tells ffmpeg to keep the same quality as input - that&#8217;s
+kinda making the solution easier.</li>
+</ul>
+
+
+<h3>Important things to keep in mind during a screencast:</h3>
+
+<ul>
+<li><p>Never use the laptop keyboard if your recording rig is a laptop - the laptop
+key clicks get recorded in the mic. Apparently <a href="noiseremoval">Thinkpad is bringing a new
+solution</a> for this problem.</p></li>
+<li><p>Sit in a place without much wind directly hitting your mic. Clean the mic and
+the hole where it&#8217;s hosted - helps improve the sound.</p></li>
+<li><p>You could use vlc/smplayer and open up a window with webcam on the screen, so
+you could have yourself on the screencasting. Here&#8217;s how to do it for
+smplayer:</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>Showing webcam in mplayer</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  mplayer -tv <span class="nv">driver</span><span class="o">=</span>v4l2:gain<span class="o">=</span>1:width<span class="o">=</span>640:height<span class="o">=</span>480:device<span class="o">=</span>/dev/video0:fps<span class="o">=</span>10:outfmt<span class="o">=</span>rgb16 tv://
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Alright, after you record in the aforementioned way, you might want to convert
+the mkv to avi or some other lighter format - actually the bitrate is quite
+for the video because of the <code>-sameq</code> modifier. If you actually mention a
+lower bitrate for the video part, the size may decrease. I got 190MB for a 15
+minute video.</li>
+</ul>
+
+
+<p>Happy Screencasting!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/2013/02/13/how-to-configure-a-ssl-site-in-ubuntu/" title="Previous Post: How to configure an SSL site in Ubuntu?">&laquo; How to configure an SSL site in Ubuntu?</a>
+      
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/2013/07/08/trivia/" title="Next Post: Trivia">Trivia &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - 2016 -  -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress </a></span> (with my own Dark Granite theme)
+</p>
+
+</footer>
+  
+
+
+</body>
+</html>
